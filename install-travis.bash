@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Print commands (-v) and fail on errors (-e)
+# Print commands (-v)
 set -v
 
 get() {
@@ -40,6 +40,7 @@ apt_pkgs=(
     php-pear                    # For PHP packages
     python2.7 python-pip        # For Python packages
     erlang                      # For Erlang
+    cabal-install-${CABAL_VERSION} # For Haskell packages
     # Various dependencies
     git-core mercurial          # For go get
     libxslt1-dev libxml2-dev    # For food-critic
@@ -142,6 +143,10 @@ go_pkgs=(
     'github.com/golang/lint/golint' # go-golint
 )
 go get "${go_pkgs[@]}"
+
+#  Haskell packages
+cabal update
+cabal install shellcheck
 
 # Elixir
 elixir_url='https://github.com/elixir-lang/elixir/releases/download/v0.12.4/Precompiled.zip'
